@@ -1,6 +1,5 @@
 import { Model } from 'mongoose';
 
-
 export type TInventory = {
   quantity: number;
   inStock: boolean;
