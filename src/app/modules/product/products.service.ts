@@ -1,4 +1,16 @@
+import { TProduct } from './product.interface';
 import { Product } from './product.model';
+
+// creating product into database
+const createProductIntoDB = async (productData: TProduct) => {
+  if (await Product.isProductExists(productData.name)) {
+    throw new Error('Product already exists');
+  }
+
+  const result = await Product.create(productData);
+
+  return result;
+};
 
 // getting all product from database & search query
 const getAllProductsFromDB = async (searchTerm?: string) => {
@@ -18,6 +30,7 @@ const getSingleProductFromDB = async (productId: string) => {
 };
 
 export const ProductServices = {
+  createProductIntoDB,
   getAllProductsFromDB,
   getSingleProductFromDB,
 };

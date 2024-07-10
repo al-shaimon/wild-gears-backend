@@ -30,17 +30,14 @@ const productValidationSchema = Joi.object({
     'string.base': 'Product category must be a string.',
     'any.required': 'Product category is required.',
   }),
-  tags: Joi.array().items(Joi.string()).required().messages({
+  tags: Joi.array().items(Joi.string()).messages({
     'array.base': 'Product tags must be an array.',
-    'any.required': 'Product tags are required.',
   }),
   image: Joi.string().required().messages({
     'string.base': 'Product image must be a string.',
     'any.required': 'Product image is required.',
   }),
-  inventory: inventoryValidationSchema.required().messages({
-    'any.required': 'Product inventory is required.',
-  }),
+  inventory: inventoryValidationSchema.messages({}),
 });
 
 export default productValidationSchema;

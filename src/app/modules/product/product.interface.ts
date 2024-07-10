@@ -1,5 +1,6 @@
 import { Model } from 'mongoose';
 
+
 export type TInventory = {
   quantity: number;
   inStock: boolean;
@@ -10,9 +11,9 @@ export type TProduct = {
   description: string;
   price: number;
   category: string;
-  tags: string[];
+  tags?: string[];
   image: string;
-  inventory: TInventory;
+  inventory?: TInventory;
 };
 
 export interface ProductModel extends Model<TProduct> {

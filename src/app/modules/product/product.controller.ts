@@ -1,6 +1,38 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { ProductServices } from './products.service';
+import productValidationSchema from './product.validation';
+
+// creating product controller
+const createProduct = async (req: Request, res: Response) => {
+  try {
+    const productData = req.body;
+
+    // Validate the product data using Joi
+    const { error, value } = productValidationSchema.validate(productData);
+
+    const result = await ProductServices.createProductIntoDB(value);
+
+    if (error) {
+      return res.status(400).send({
+        success: false,
+        message: 'Create data Validation error!',
+        error: error.details,
+      });
+    }
+
+    res.status(201).json({
+      success: true,
+      message: 'Product created successfully!',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      success: false,
+      message: err.message || 'Something went wrong!',
+    });
+  }
+};
 
 // getting all products controller with search query
 const getAllProducts = async (req: Request, res: Response) => {
@@ -63,6 +95,7 @@ const getSingleProduct = async (req: Request, res: Response) => {
 };
 
 export const ProductControllers = {
+  createProduct,
   getAllProducts,
   getSingleProduct,
 };

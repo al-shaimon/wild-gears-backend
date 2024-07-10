@@ -29,7 +29,7 @@ const productSchema = new Schema<TProduct, ProductModel>({
   },
   tags: {
     type: [String],
-    required: [true, 'Product tags are required.'],
+    optional: true,
   },
   image: {
     type: String,
@@ -37,7 +37,7 @@ const productSchema = new Schema<TProduct, ProductModel>({
   },
   inventory: {
     type: inventorySchema,
-    required: [true, 'Product inventory is required.'],
+    optional: true,
   },
 });
 
