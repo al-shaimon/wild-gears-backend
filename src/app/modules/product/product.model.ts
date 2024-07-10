@@ -27,6 +27,10 @@ const productSchema = new Schema<TProduct, ProductModel>({
     type: String,
     required: [true, 'Product category is required.'],
   },
+  tags: {
+    type: [String],
+    required: [true, 'Product tags are required.'],
+  },
   image: {
     type: String,
     required: [true, 'Product image is required.'],
