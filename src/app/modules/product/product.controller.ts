@@ -33,6 +33,36 @@ const getAllProducts = async (req: Request, res: Response) => {
     });
   }
 };
+
+// getting single product controller
+const getSingleProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+
+    const result = await ProductServices.getSingleProductFromDB(productId);
+
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Product fetched successfully!',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      success: false,
+      message: err.message || 'Something went wrong!',
+      error: err,
+    });
+  }
+};
+
 export const ProductControllers = {
   getAllProducts,
+  getSingleProduct,
 };

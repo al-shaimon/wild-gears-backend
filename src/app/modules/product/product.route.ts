@@ -7,4 +7,6 @@ const router = express.Router();
 
 router.get('/', ProductControllers.getAllProducts);
 
+router.get('/:productId', ProductControllers.getSingleProduct);
+
 export const ProductRoutes = router;
