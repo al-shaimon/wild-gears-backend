@@ -31,8 +31,8 @@ const productSchema = new Schema<TProduct, ProductModel>({
     type: [String],
     optional: true,
   },
-  image: {
-    type: String,
+  images: {
+    type: [String],
     required: [true, 'Product image is required.'],
   },
   inventory: {
