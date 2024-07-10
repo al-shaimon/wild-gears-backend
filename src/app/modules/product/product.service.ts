@@ -25,12 +25,38 @@ const getAllProductsFromDB = async (searchTerm?: string) => {
 const getSingleProductFromDB = async (productId: string) => {
   const result = await Product.findOne({ _id: productId });
 
-  // const result = await Product.aggregate([{ $match: { id: id } }]);
   return result;
+};
+
+// updating single product from database
+const updateProductInDB = async (
+  productId: string,
+  productData: Partial<TProduct>,
+  updateInventoryOnly: boolean = false,
+) => {
+  const update = updateInventoryOnly
+    ? {
+        'inventory.quantity': productData.inventory?.quantity,
+        'inventory.inStock': productData.inventory?.inStock,
+      }
+    : productData;
+
+  const result = await Product.findByIdAndUpdate(productId, update, {
+    new: true,
+  });
+
+  return result;
+};
+
+// deleting product from database
+const deleteProductFromDB = async (productId: string) => {
+  await Product.deleteOne({ _id: productId });
 };
 
 export const ProductServices = {
   createProductIntoDB,
   getAllProductsFromDB,
   getSingleProductFromDB,
+  updateProductInDB,
+  deleteProductFromDB,
 };

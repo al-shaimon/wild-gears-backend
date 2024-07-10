@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
-import { ProductServices } from './products.service';
+import { ProductServices } from './product.service';
 import productValidationSchema from './product.validation';
+import { Product } from './product.model';
 
 // creating product controller
 const createProduct = async (req: Request, res: Response) => {
@@ -94,8 +95,75 @@ const getSingleProduct = async (req: Request, res: Response) => {
   }
 };
 
+// updating product in database
+const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const updateData = req.body;
+
+    // checking if another product with same name exists in database
+    const existingProduct = await Product.findOne({
+      name: updateData.name,
+      _id: { $ne: productId },
+    });
+
+    if (existingProduct) {
+      return res.status(201).json({
+        success: false,
+        message: 'Product with same name already exists!',
+      });
+    }
+
+    const updatedProduct = await ProductServices.updateProductInDB(
+      productId,
+      updateData,
+    );
+
+    if (!updatedProduct) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Product updated successfully!',
+      data: updatedProduct,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Something went wrong!',
+    });
+  }
+};
+
+// deleting product controller
+const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+
+    await ProductServices.deleteProductFromDB(productId);
+
+    res.status(200).json({
+      success: true,
+      message: 'Product deleted successfully!',
+      data: null,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      success: false,
+      message: err.message || 'Something went wrong!',
+      error: err,
+    });
+  }
+};
+
 export const ProductControllers = {
   createProduct,
   getAllProducts,
   getSingleProduct,
+  updateProduct,
+  deleteProduct,
 };
