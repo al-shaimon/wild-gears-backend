@@ -20,7 +20,7 @@ const productSchema = new Schema<TProduct, ProductModel>({
     required: [true, 'Product description is required.'],
   },
   price: {
-    type: Number,
+    type: String,
     required: [true, 'Product price is required.'],
   },
   category: {

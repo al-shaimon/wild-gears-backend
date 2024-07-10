@@ -8,7 +8,7 @@ export type TInventory = {
 export type TProduct = {
   name: string;
   description: string;
-  price: number;
+  price: string;
   category: string;
   tags?: string[];
   images: string[];

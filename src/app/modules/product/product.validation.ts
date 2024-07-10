@@ -22,8 +22,8 @@ const productValidationSchema = Joi.object({
     'string.base': 'Product description must be a string.',
     'any.required': 'Product description is required.',
   }),
-  price: Joi.number().required().messages({
-    'number.base': 'Product price must be a number.',
+  price: Joi.string().required().messages({
+    'string.base': 'Product price must be a string.',
     'any.required': 'Product price is required.',
   }),
   category: Joi.string().required().messages({
