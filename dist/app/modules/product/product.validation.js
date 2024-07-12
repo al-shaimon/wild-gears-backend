@@ -25,8 +25,8 @@ const productValidationSchema = joi_1.default.object({
         'string.base': 'Product description must be a string.',
         'any.required': 'Product description is required.',
     }),
-    price: joi_1.default.number().required().messages({
-        'number.base': 'Product price must be a number.',
+    price: joi_1.default.string().required().messages({
+        'string.base': 'Product price must be a string.',
         'any.required': 'Product price is required.',
     }),
     category: joi_1.default.string().required().messages({
@@ -36,8 +36,8 @@ const productValidationSchema = joi_1.default.object({
     tags: joi_1.default.array().items(joi_1.default.string()).messages({
         'array.base': 'Product tags must be an array.',
     }),
-    image: joi_1.default.string().required().messages({
-        'string.base': 'Product image must be a string.',
+    images: joi_1.default.array().required().items(joi_1.default.string()).messages({
+        'string.base': 'Product image must be an array.',
         'any.required': 'Product image is required.',
     }),
     inventory: inventoryValidationSchema.messages({}),

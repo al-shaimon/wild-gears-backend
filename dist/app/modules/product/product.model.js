@@ -29,7 +29,7 @@ const productSchema = new mongoose_1.Schema({
         required: [true, 'Product description is required.'],
     },
     price: {
-        type: Number,
+        type: String,
         required: [true, 'Product price is required.'],
     },
     category: {
@@ -40,8 +40,8 @@ const productSchema = new mongoose_1.Schema({
         type: [String],
         optional: true,
     },
-    image: {
-        type: String,
+    images: {
+        type: [String],
         required: [true, 'Product image is required.'],
     },
     inventory: {

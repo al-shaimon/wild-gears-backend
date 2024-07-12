@@ -10,7 +10,6 @@ export type TProduct = {
   description: string;
   price: string;
   category: string;
-  categoryImage: string;
   tags?: string[];
   images: string[];
   inventory?: TInventory;
