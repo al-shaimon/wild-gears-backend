@@ -25,10 +25,24 @@ const productSchema = new Schema<TProduct, ProductModel>({
   },
   category: {
     type: String,
+    enum: [
+      'Jacket',
+      'Tent',
+      'Camping Stove',
+      'Portable Chair',
+      'Flashlights',
+      'Camping Cookware',
+      'First Aid Kit',
+      'Water Bottle',
+      'Sleeping Bag',
+      'Backpack',
+      'Hiking Boots',
+    ],
     required: [true, 'Product category is required.'],
   },
   tags: {
     type: [String],
+    enum: ['Best Selling', 'Featured'],
     optional: true,
   },
   images: {
@@ -38,6 +52,12 @@ const productSchema = new Schema<TProduct, ProductModel>({
   inventory: {
     type: inventorySchema,
     optional: true,
+  },
+  rating: {
+    type: Number,
+    min: 0,
+    max: 5,
+    default: 0,
   },
 });
 

@@ -9,10 +9,22 @@ export type TProduct = {
   name: string;
   description: string;
   price: string;
-  category: string;
-  tags?: string[];
+  category:
+    | 'Jacket'
+    | 'Tent'
+    | 'Camping Stove'
+    | 'Portable Chair'
+    | 'Flashlights'
+    | 'Camping Cookware'
+    | 'First Aid Kit'
+    | 'Water Bottle'
+    | 'Sleeping Bag'
+    | 'Backpack'
+    | 'Hiking Boots';
+  tags?: ('Best Selling' | 'Featured')[];
   images: string[];
   inventory?: TInventory;
+  rating?: number;
 };
 
 export interface ProductModel extends Model<TProduct> {

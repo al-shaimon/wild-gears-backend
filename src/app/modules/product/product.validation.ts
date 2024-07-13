@@ -26,18 +26,41 @@ const productValidationSchema = Joi.object({
     'string.base': 'Product price must be a string.',
     'any.required': 'Product price is required.',
   }),
-  category: Joi.string().required().messages({
-    'string.base': 'Product category must be a string.',
-    'any.required': 'Product category is required.',
-  }),
-  tags: Joi.array().items(Joi.string()).messages({
-    'array.base': 'Product tags must be an array.',
-  }),
+  category: Joi.string()
+    .valid(
+      'Jacket',
+      'Tent',
+      'Camping Stove',
+      'Portable Chair',
+      'Flashlights',
+      'Camping Cookware',
+      'First Aid Kit',
+      'Water Bottle',
+      'Sleeping Bag',
+      'Backpack',
+      'Hiking Boots'
+    )
+    .required()
+    .messages({
+      'any.only': 'Invalid category.',
+      'any.required': 'Product category is required.',
+    }),
+  tags: Joi.array()
+    .items(Joi.string().valid('Best Selling', 'Featured'))
+    .messages({
+      'array.base': 'Product tags must be an array.',
+      'any.only': 'Invalid tag.',
+    }),
   images: Joi.array().required().items(Joi.string()).messages({
     'string.base': 'Product image must be an array.',
     'any.required': 'Product image is required.',
   }),
   inventory: inventoryValidationSchema.messages({}),
+  rating: Joi.number().min(0).max(5).messages({
+    'number.base': 'Rating must be a number.',
+    'number.min': 'Rating must be at least 0.',
+    'number.max': 'Rating must be at most 5.',
+  }),
 });
 
 export default productValidationSchema;
